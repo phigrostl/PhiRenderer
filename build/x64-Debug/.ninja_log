@@ -1,0 +1,24 @@
+# ninja log v5
+1	77	7811558689385203	CMakeFiles/PGR.dir/src/PGR/Main.cpp.obj	7993920cf5950da3
+8	653	7811558695125340	CMakeFiles/PGR.dir/src/PGR/Base/Maths.cpp.obj	9600b932806773fd
+16	1116	7811562346627012	CMakeFiles/PGR.dir/src/PGR/Window/Window.cpp.obj	b82e169a3497184e
+11	1145	7811562346916824	CMakeFiles/PGR.dir/src/PGR/Application.cpp.obj	6dc03bebe8ac31ce
+4	1185	7811562347296682	CMakeFiles/PGR.dir/src/PGR/Window/Framebuffer.cpp.obj	3d6ea63b8b263443
+5	388	7811562988665120	CMakeFiles/PGR.dir/src/PGR/stb/stb_truetype.cpp.obj	8f6a2ee0b3947d5
+17	398	7811562988775108	CMakeFiles/PGR.dir/src/PGR/stb/stb_image.cpp.obj	6c24e9f1ace25d3e
+12	520	7811562989989650	CMakeFiles/PGR.dir/src/PGR/stb/std_image_resize2.cpp.obj	7f39cad523f607
+520	935	7811562994017584	PGR.exe	196d19b555be5a97
+4	1143	7811563997806596	CMakeFiles/PGR.dir/src/PGR/Main.cpp.obj	7993920cf5950da3
+1145	1429	7811564000251781	PGR.exe	196d19b555be5a97
+5	1150	7811566062076095	CMakeFiles/PGR.dir/src/PGR/Main.cpp.obj	7993920cf5950da3
+12	1172	7811566062286196	CMakeFiles/PGR.dir/src/PGR/Window/Framebuffer.cpp.obj	3d6ea63b8b263443
+1173	1417	7811566064393772	PGR.exe	196d19b555be5a97
+4	1149	7811568400775944	CMakeFiles/PGR.dir/src/PGR/Application.cpp.obj	6dc03bebe8ac31ce
+11	1168	7811568400965820	CMakeFiles/PGR.dir/src/PGR/Window/Framebuffer.cpp.obj	3d6ea63b8b263443
+1168	1413	7811568403060240	PGR.exe	196d19b555be5a97
+5	1405	7811569143541944	CMakeFiles/PGR.dir/src/PGR/Application.cpp.obj	6dc03bebe8ac31ce
+1406	1637	7811569145540642	PGR.exe	196d19b555be5a97
+4	1348	7811569344814342	CMakeFiles/PGR.dir/src/PGR/Application.cpp.obj	6dc03bebe8ac31ce
+1349	1579	7811569346803051	PGR.exe	196d19b555be5a97
+5	1166	7811569700337452	CMakeFiles/PGR.dir/src/PGR/Application.cpp.obj	6dc03bebe8ac31ce
+1167	1399	7811569702342744	PGR.exe	196d19b555be5a97

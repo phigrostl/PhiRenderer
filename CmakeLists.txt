@@ -7,4 +7,13 @@ include_directories(${CMAKE_SOURCE_DIR}/src)
 
 add_executable(PGR
 	"src/PGR/Main.cpp"
+	"src/PGR/Application.cpp"
+
+	"src/PGR/Window/Window.cpp"
+	"src/PGR/Window/Framebuffer.cpp"
+	"src/PGR/Base/Maths.cpp"
+
+	"src/PGR/stb/stb_image.cpp"
+	"src/PGR/stb/stb_truetype.cpp"
+	"src/PGR/stb/std_image_resize2.cpp"
 )
