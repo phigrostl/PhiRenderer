@@ -1,0 +1,59 @@
+# RTL
+> [English](./README_EN.md)
+### 介绍
+`PhigrosRenderer` 是一个在 `Windows` 平台使用 `C++` 编写的Phigros渲染器
+
+借鉴了 [`papFri`](https://www.bilibili.com/video/BV1YJ7uzGE9x) 的软件架构，实现了基本的渲染功能：
+
+ - 实现了Phigros官谱的读取与渲染
+
+### 使用方法
+
+##### 运行环境
+
+```
+CPU : Intel E5-2673 v3
+操作系统 : Windows 10
+编译器 : MSVC 2019
+```
+
+#### 下载 `Release` 版本
+点击 `Release` 下的 `PGR-x64 or x86-Release.exe` 下载最新版本的 `PGR` 压缩包
+双击 `PGR.exe` 即可
+
+#### 自行构建
+
+```
+git clone https://github.com/phigrostl/PhigrosRenderer.git  // 克隆项目
+cd PhigrosRenderer                                          // 进入项目目录
+mkdir build                                                 // 创建构建目录
+cd build                                                    // 进入构建目录
+cmake .. --DCMAKE_BUILD_TYPE=Release                        // 配置项目
+cmake --build . --config Release                            // 构建项目
+cd x86 or x64-Release                                       // 进入Release目录
+.\PGR.exe                                                   // 运行PGR
+```
+
+#### 使用 `VS2019` 编辑代码
+```
+git clone https://github.com/phigrostl/PhigrosRenderer.git  // 克隆项目
+cd PhigrosRenderer                                          // 进入项目目录
+mkdir build                                                 // 创建构建目录
+cd build                                                    // 进入构建目录
+.\PGR.sln                                                   // 打开VS2019项目
+```
+
+### 效果
+ - `Distorted Fate` | Music : `Sakuzyo` | Draw : `knife美工刀` | Chart : `unDefined Future` (`JKy`、`NerSAN`、`Rikko`、`TangScend`、`百九十八`、`晨`)
+ <div>
+	<img src="./DF1.png" width="640px" height="360px" />
+ </div>
+ 
+ <div>
+	<img src="./DF2.png" width="640px" height="360px" />
+ </div>
+
+ <div>
+	<img src="./DF3.png" width="640px" height="360px" />
+ </div>
+ 

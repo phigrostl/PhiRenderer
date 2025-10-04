@@ -1,2 +1,0 @@
-# PhiRenderer
-A Phigros Renderer.
