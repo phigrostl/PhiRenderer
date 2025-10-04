@@ -1,0 +1,12 @@
+# ninja log v5
+51	647	7812857573520368	CMakeFiles/PGR.dir/src/cJSON/cJSON.c.obj	eb31a3b92be520e2
+46	662	7812857573670289	CMakeFiles/PGR.dir/src/PGR/stb/stb_truetype.cpp.obj	fa750822ae3fbc64
+40	669	7812857573770214	CMakeFiles/PGR.dir/src/PGR/stb/stb_image.cpp.obj	bce0c59d3063a537
+57	923	7812857576319058	CMakeFiles/PGR.dir/src/PGR/stb/std_image_resize2.cpp.obj	9c043552b989c3a7
+24	1068	7812857577768213	CMakeFiles/PGR.dir/src/PGR/Base/Maths.cpp.obj	d14b9b7122b7aa8b
+9	1555	7812857582625833	CMakeFiles/PGR.dir/src/PGR/Window/Window.cpp.obj	4f193f3a7cdd0f60
+35	1584	7812857582905883	CMakeFiles/PGR.dir/src/PGR/Renderer/Texture.cpp.obj	d3970da250f28569
+17	1640	7812857583476028	CMakeFiles/PGR.dir/src/PGR/Window/Framebuffer.cpp.obj	7b163bc2a6093347
+2	1783	7812857584905234	CMakeFiles/PGR.dir/src/PGR/Main.cpp.obj	103f0bdcedec81d3
+29	2037	7812857587434445	CMakeFiles/PGR.dir/src/PGR/Application.cpp.obj	2130065c5e7124a5
+2038	2724	7812857594187713	PGR.exe	f759442db75a7d2f
