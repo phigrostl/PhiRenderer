@@ -346,6 +346,11 @@ namespace PGR {
 
 		LoadFiles();
 
+		m_Window->DrawFramebuffer(m_Framebuffer);
+		Sleep(15000);
+		PlaySound("chart/music.wav", NULL, SND_ASYNC | SND_NODEFAULT);
+
+
 		m_StartFrameTime = std::chrono::steady_clock::now();
 	}
 
@@ -392,7 +397,6 @@ namespace PGR {
 	}
 
 	void Application::Run() {
-		PlaySound("chart/music.wav", NULL, SND_ASYNC | SND_NODEFAULT);
 		while (!m_Window->Closed()) {
 			m_Framebuffer->Clear(Vec3(0.09f, 0.10f, 0.14f));
 			m_Window->PollInputEvents();

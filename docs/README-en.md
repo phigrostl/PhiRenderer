@@ -43,6 +43,10 @@ cd build                                                    // Navigate to the b
 
 ### Showcase
 - `Distorted Fate` | Music: `Sakuzyo` | Artwork: `knife美工刀` | Chart: `unDefined Future` (`JKy`, `NerSAN`, `Rikko`, `TangScend`, `百九十八`, `晨`)
+
+https://github.com/user-attachments/assets/33d83e33-ef11-49ea-94ca-2bcd5c1508a3
+ > Github can only upload 10MB files, this is after compression.
+
 <div>
 	<img src="./DF1.png" width="640px" height="360px" />
 </div>

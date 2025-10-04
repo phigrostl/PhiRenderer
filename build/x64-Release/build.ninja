@@ -12,7 +12,7 @@
 
 # =============================================================================
 # Project: PGR
-# Configurations: RelWithDebInfo
+# Configurations: Release
 # =============================================================================
 
 #############################################
@@ -24,7 +24,7 @@ ninja_required_version = 1.5
 #############################################
 # Set configuration variable for custom commands.
 
-CONFIGURATION = RelWithDebInfo
+CONFIGURATION = Release
 # =============================================================================
 # Include auxiliary files.
 
@@ -43,80 +43,80 @@ include CMakeFiles\rules.ninja
 
 build cmake_object_order_depends_target_PGR: phony || CMakeFiles\PGR.dir
 
-build CMakeFiles\PGR.dir\src\PGR\Main.cpp.obj: CXX_COMPILER__PGR_RelWithDebInfo ..\..\src\PGR\Main.cpp || cmake_object_order_depends_target_PGR
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /Zi /O2 /Ob1 /DNDEBUG -std:c++17
+build CMakeFiles\PGR.dir\src\PGR\Main.cpp.obj: CXX_COMPILER__PGR_Release ..\..\src\PGR\Main.cpp || cmake_object_order_depends_target_PGR
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG -std:c++17
   INCLUDES = -I..\..\src
   OBJECT_DIR = CMakeFiles\PGR.dir
   OBJECT_FILE_DIR = CMakeFiles\PGR.dir\src\PGR
   TARGET_COMPILE_PDB = CMakeFiles\PGR.dir\
   TARGET_PDB = PGR.pdb
 
-build CMakeFiles\PGR.dir\src\PGR\Application.cpp.obj: CXX_COMPILER__PGR_RelWithDebInfo ..\..\src\PGR\Application.cpp || cmake_object_order_depends_target_PGR
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /Zi /O2 /Ob1 /DNDEBUG -std:c++17
+build CMakeFiles\PGR.dir\src\PGR\Application.cpp.obj: CXX_COMPILER__PGR_Release ..\..\src\PGR\Application.cpp || cmake_object_order_depends_target_PGR
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG -std:c++17
   INCLUDES = -I..\..\src
   OBJECT_DIR = CMakeFiles\PGR.dir
   OBJECT_FILE_DIR = CMakeFiles\PGR.dir\src\PGR
   TARGET_COMPILE_PDB = CMakeFiles\PGR.dir\
   TARGET_PDB = PGR.pdb
 
-build CMakeFiles\PGR.dir\src\PGR\Window\Window.cpp.obj: CXX_COMPILER__PGR_RelWithDebInfo ..\..\src\PGR\Window\Window.cpp || cmake_object_order_depends_target_PGR
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /Zi /O2 /Ob1 /DNDEBUG -std:c++17
+build CMakeFiles\PGR.dir\src\PGR\Window\Window.cpp.obj: CXX_COMPILER__PGR_Release ..\..\src\PGR\Window\Window.cpp || cmake_object_order_depends_target_PGR
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG -std:c++17
   INCLUDES = -I..\..\src
   OBJECT_DIR = CMakeFiles\PGR.dir
   OBJECT_FILE_DIR = CMakeFiles\PGR.dir\src\PGR\Window
   TARGET_COMPILE_PDB = CMakeFiles\PGR.dir\
   TARGET_PDB = PGR.pdb
 
-build CMakeFiles\PGR.dir\src\PGR\Window\Framebuffer.cpp.obj: CXX_COMPILER__PGR_RelWithDebInfo ..\..\src\PGR\Window\Framebuffer.cpp || cmake_object_order_depends_target_PGR
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /Zi /O2 /Ob1 /DNDEBUG -std:c++17
+build CMakeFiles\PGR.dir\src\PGR\Window\Framebuffer.cpp.obj: CXX_COMPILER__PGR_Release ..\..\src\PGR\Window\Framebuffer.cpp || cmake_object_order_depends_target_PGR
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG -std:c++17
   INCLUDES = -I..\..\src
   OBJECT_DIR = CMakeFiles\PGR.dir
   OBJECT_FILE_DIR = CMakeFiles\PGR.dir\src\PGR\Window
   TARGET_COMPILE_PDB = CMakeFiles\PGR.dir\
   TARGET_PDB = PGR.pdb
 
-build CMakeFiles\PGR.dir\src\PGR\Base\Maths.cpp.obj: CXX_COMPILER__PGR_RelWithDebInfo ..\..\src\PGR\Base\Maths.cpp || cmake_object_order_depends_target_PGR
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /Zi /O2 /Ob1 /DNDEBUG -std:c++17
+build CMakeFiles\PGR.dir\src\PGR\Base\Maths.cpp.obj: CXX_COMPILER__PGR_Release ..\..\src\PGR\Base\Maths.cpp || cmake_object_order_depends_target_PGR
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG -std:c++17
   INCLUDES = -I..\..\src
   OBJECT_DIR = CMakeFiles\PGR.dir
   OBJECT_FILE_DIR = CMakeFiles\PGR.dir\src\PGR\Base
   TARGET_COMPILE_PDB = CMakeFiles\PGR.dir\
   TARGET_PDB = PGR.pdb
 
-build CMakeFiles\PGR.dir\src\PGR\Renderer\Texture.cpp.obj: CXX_COMPILER__PGR_RelWithDebInfo ..\..\src\PGR\Renderer\Texture.cpp || cmake_object_order_depends_target_PGR
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /Zi /O2 /Ob1 /DNDEBUG -std:c++17
+build CMakeFiles\PGR.dir\src\PGR\Renderer\Texture.cpp.obj: CXX_COMPILER__PGR_Release ..\..\src\PGR\Renderer\Texture.cpp || cmake_object_order_depends_target_PGR
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG -std:c++17
   INCLUDES = -I..\..\src
   OBJECT_DIR = CMakeFiles\PGR.dir
   OBJECT_FILE_DIR = CMakeFiles\PGR.dir\src\PGR\Renderer
   TARGET_COMPILE_PDB = CMakeFiles\PGR.dir\
   TARGET_PDB = PGR.pdb
 
-build CMakeFiles\PGR.dir\src\PGR\stb\stb_image.cpp.obj: CXX_COMPILER__PGR_RelWithDebInfo ..\..\src\PGR\stb\stb_image.cpp || cmake_object_order_depends_target_PGR
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /Zi /O2 /Ob1 /DNDEBUG -std:c++17
+build CMakeFiles\PGR.dir\src\PGR\stb\stb_image.cpp.obj: CXX_COMPILER__PGR_Release ..\..\src\PGR\stb\stb_image.cpp || cmake_object_order_depends_target_PGR
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG -std:c++17
   INCLUDES = -I..\..\src
   OBJECT_DIR = CMakeFiles\PGR.dir
   OBJECT_FILE_DIR = CMakeFiles\PGR.dir\src\PGR\stb
   TARGET_COMPILE_PDB = CMakeFiles\PGR.dir\
   TARGET_PDB = PGR.pdb
 
-build CMakeFiles\PGR.dir\src\PGR\stb\stb_truetype.cpp.obj: CXX_COMPILER__PGR_RelWithDebInfo ..\..\src\PGR\stb\stb_truetype.cpp || cmake_object_order_depends_target_PGR
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /Zi /O2 /Ob1 /DNDEBUG -std:c++17
+build CMakeFiles\PGR.dir\src\PGR\stb\stb_truetype.cpp.obj: CXX_COMPILER__PGR_Release ..\..\src\PGR\stb\stb_truetype.cpp || cmake_object_order_depends_target_PGR
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG -std:c++17
   INCLUDES = -I..\..\src
   OBJECT_DIR = CMakeFiles\PGR.dir
   OBJECT_FILE_DIR = CMakeFiles\PGR.dir\src\PGR\stb
   TARGET_COMPILE_PDB = CMakeFiles\PGR.dir\
   TARGET_PDB = PGR.pdb
 
-build CMakeFiles\PGR.dir\src\PGR\stb\std_image_resize2.cpp.obj: CXX_COMPILER__PGR_RelWithDebInfo ..\..\src\PGR\stb\std_image_resize2.cpp || cmake_object_order_depends_target_PGR
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /Zi /O2 /Ob1 /DNDEBUG -std:c++17
+build CMakeFiles\PGR.dir\src\PGR\stb\std_image_resize2.cpp.obj: CXX_COMPILER__PGR_Release ..\..\src\PGR\stb\std_image_resize2.cpp || cmake_object_order_depends_target_PGR
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG -std:c++17
   INCLUDES = -I..\..\src
   OBJECT_DIR = CMakeFiles\PGR.dir
   OBJECT_FILE_DIR = CMakeFiles\PGR.dir\src\PGR\stb
   TARGET_COMPILE_PDB = CMakeFiles\PGR.dir\
   TARGET_PDB = PGR.pdb
 
-build CMakeFiles\PGR.dir\src\cJSON\cJSON.c.obj: C_COMPILER__PGR_RelWithDebInfo ..\..\src\cJSON\cJSON.c || cmake_object_order_depends_target_PGR
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /MD /Zi /O2 /Ob1 /DNDEBUG
+build CMakeFiles\PGR.dir\src\cJSON\cJSON.c.obj: C_COMPILER__PGR_Release ..\..\src\cJSON\cJSON.c || cmake_object_order_depends_target_PGR
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /MD /O2 /Ob2 /DNDEBUG
   INCLUDES = -I..\..\src
   OBJECT_DIR = CMakeFiles\PGR.dir
   OBJECT_FILE_DIR = CMakeFiles\PGR.dir\src\cJSON
@@ -131,9 +131,9 @@ build CMakeFiles\PGR.dir\src\cJSON\cJSON.c.obj: C_COMPILER__PGR_RelWithDebInfo .
 #############################################
 # Link the executable PGR.exe
 
-build PGR.exe: CXX_EXECUTABLE_LINKER__PGR_RelWithDebInfo CMakeFiles\PGR.dir\src\PGR\Main.cpp.obj CMakeFiles\PGR.dir\src\PGR\Application.cpp.obj CMakeFiles\PGR.dir\src\PGR\Window\Window.cpp.obj CMakeFiles\PGR.dir\src\PGR\Window\Framebuffer.cpp.obj CMakeFiles\PGR.dir\src\PGR\Base\Maths.cpp.obj CMakeFiles\PGR.dir\src\PGR\Renderer\Texture.cpp.obj CMakeFiles\PGR.dir\src\PGR\stb\stb_image.cpp.obj CMakeFiles\PGR.dir\src\PGR\stb\stb_truetype.cpp.obj CMakeFiles\PGR.dir\src\PGR\stb\std_image_resize2.cpp.obj CMakeFiles\PGR.dir\src\cJSON\cJSON.c.obj
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /Zi /O2 /Ob1 /DNDEBUG
-  LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
+build PGR.exe: CXX_EXECUTABLE_LINKER__PGR_Release CMakeFiles\PGR.dir\src\PGR\Main.cpp.obj CMakeFiles\PGR.dir\src\PGR\Application.cpp.obj CMakeFiles\PGR.dir\src\PGR\Window\Window.cpp.obj CMakeFiles\PGR.dir\src\PGR\Window\Framebuffer.cpp.obj CMakeFiles\PGR.dir\src\PGR\Base\Maths.cpp.obj CMakeFiles\PGR.dir\src\PGR\Renderer\Texture.cpp.obj CMakeFiles\PGR.dir\src\PGR\stb\stb_image.cpp.obj CMakeFiles\PGR.dir\src\PGR\stb\stb_truetype.cpp.obj CMakeFiles\PGR.dir\src\PGR\stb\std_image_resize2.cpp.obj CMakeFiles\PGR.dir\src\cJSON\cJSON.c.obj
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG
+  LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console
   LINK_LIBRARIES = kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = CMakeFiles\PGR.dir
   POST_BUILD = cd .
