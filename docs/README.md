@@ -44,7 +44,12 @@ cd build                                                    // 进入构建目�
 ```
 
 ### 效果
- - `Distorted Fate` | Music : `Sakuzyo` | Draw : `knife美工刀` | Chart : `unDefined Future` (`JKy`、`NerSAN`、`Rikko`、`TangScend`、`百九十八`、`晨`)
+ - `Distorted Fate` | Music : `Sakuzyo` | Draw : `knife美工刀` | Chart : `unDefined Future` (`JKy`、`NerSAN`、`Rikko`、`TangScend`、`百九
+十八`、`晨`)
+
+https://github.com/user-attachments/assets/33d83e33-ef11-49ea-94ca-2bcd5c1508a3
+ > Github只能上传10MB文件，这是被压缩后的
+
  <div>
 	<img src="./DF1.png" width="640px" height="360px" />
  </div>
