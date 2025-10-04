@@ -1,10 +1,11 @@
 #pragma once
 
 #include "PGR/Base/Maths.h"
+#include "PGR/Renderer/Texture.h"
 
 #include <Windows.h>
-#include <stb_image/stb_truetype.h>
 #include <fstream>
+#include <stb_image/stb_truetype.h>
 
 namespace PGR {
 
@@ -16,22 +17,24 @@ namespace PGR {
 		int GetWidth() const { return m_Width; }
 		int GetHeight() const { return m_Height; }
 
-		void SetColor(const int x, const int y, const Vec3& color);
+		void SetColor(const int x, const int y, const Vec4& color);
 		Vec3 GetColor(const int x, const int y) const;
 
 		void Clear(const Vec3& color = Vec3(0.0f, 0.0f, 0.0f));
 
 		// short
 		void LoadFontTTF(const std::string& fontPath);
-		void DrawCharTTF(int x, int y, char c, const Vec3& color, float fontSize);
-		void DrawTextTTF(int x, int y, const std::string& text, const Vec3& color, float fontSize);
+		void DrawCharTTF(int x, int y, char c, const Vec4& color, float fontSize);
+		void DrawTextTTF(int x, int y, const std::string& text, const Vec4& color, float fontSize);
 
 		// wide
 		void LoadWFontTTF(const std::wstring& fontPath);
-		void DrawWCharTTF(int x, int y, wchar_t c, const Vec3& color, float fontSize);
-		void DrawWTextTTF(int x, int y, const std::wstring& text, const Vec3& color, float fontSize);
+		void DrawWCharTTF(int x, int y, wchar_t c, const Vec4& color, float fontSize);
+		void DrawWTextTTF(int x, int y, const std::wstring& text, const Vec4& color, float fontSize);
 
-		const float* GetRawColorData() const { return (float*)(m_ColorBuffer); }
+		void DrawLine(int x0, int y0, int x1, int y1, float w, const Vec4& color);
+		void FillRect(int x0, int y0, int x1, int y1, const Vec4& color);
+		void FillSizeRect(int x, int y, int w, int h, const Vec4& color);
 
 		static Framebuffer* Create(const int width, const int height);
 

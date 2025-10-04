@@ -12,8 +12,11 @@ add_executable(PGR
 	"src/PGR/Window/Window.cpp"
 	"src/PGR/Window/Framebuffer.cpp"
 	"src/PGR/Base/Maths.cpp"
+	"src/PGR/Renderer/Texture.cpp"
 
 	"src/PGR/stb/stb_image.cpp"
 	"src/PGR/stb/stb_truetype.cpp"
 	"src/PGR/stb/std_image_resize2.cpp"
+
+	"src/cJSON/cJSON.c"
 )

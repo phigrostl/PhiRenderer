@@ -18,6 +18,15 @@ msvc_deps_prefix = 注意: 包含文件:
 
 
 #############################################
+# Rule for compiling C files.
+
+rule C_COMPILER__PGR_Debug
+  deps = msvc
+  command = C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\1429~1.301\bin\Hostx64\x64\cl.exe  /nologo $DEFINES $INCLUDES $FLAGS /showIncludes /Fo$out /Fd$TARGET_COMPILE_PDB /FS -c $in
+  description = Building C object $out
+
+
+#############################################
 # Rule for compiling CXX files.
 
 rule CXX_COMPILER__PGR_Debug

@@ -15,9 +15,11 @@ namespace PGR {
 		m_ColorBuffer = nullptr;
 	}
 
-	void Framebuffer::SetColor(const int x, const int y, const Vec3& color) {
-		if (x >= 0 && x < m_Width && y >= 0 && y < m_Height)
-			m_ColorBuffer[x + y * m_Width] = color;
+	void Framebuffer::SetColor(const int x, const int y, const Vec4& color) {
+		if (x >= 0 && x < m_Width && y >= 0 && y < m_Height) {
+			Vec3 c = Lerp(GetColor(x, y), color, color.W);
+			m_ColorBuffer[x + y * m_Width] = c;
+		}
 		else
 			ASSERT(false);
 	}
@@ -53,7 +55,7 @@ namespace PGR {
 		stbtt_InitFont(&m_FontInfo, m_fontBuffer.data(), 0);
 	}
 
-	void Framebuffer::DrawCharTTF(int x, int y, char c, const Vec3& color, float fontSize) {
+	void Framebuffer::DrawCharTTF(int x, int y, char c, const Vec4& color, float fontSize) {
 		unsigned char* bitmap;
 		int w, h, xoff, yoff;
 		float scale = stbtt_ScaleForPixelHeight(&m_FontInfo, fontSize);
@@ -68,7 +70,7 @@ namespace PGR {
 			for (int i = 0; i < w; i++) {
 				float alpha = bitmap[i + j * w] / 255.0f;
 				if (alpha > 0.1f) {
-					Vec3 col = color * alpha;
+					Vec4 col = color * alpha;
 					SetColor(x + i + xoff, m_Height - (y + j + yoff + baseline), col);
 				}
 			}
@@ -76,7 +78,7 @@ namespace PGR {
 		stbtt_FreeBitmap(bitmap, nullptr);
 	}
 
-	void Framebuffer::DrawTextTTF(int x, int y, const std::string& text, const Vec3& color, float fontSize) {
+	void Framebuffer::DrawTextTTF(int x, int y, const std::string& text, const Vec4& color, float fontSize) {
 		float scale = stbtt_ScaleForPixelHeight(&m_FontInfo, fontSize);
 		int xpos = x;
 
@@ -102,7 +104,7 @@ namespace PGR {
 		stbtt_InitFont(&m_FontInfo, m_fontBuffer.data(), 0);
 	}
 
-	void Framebuffer::DrawWCharTTF(int x, int y, wchar_t c, const Vec3& color, float fontSize) {
+	void Framebuffer::DrawWCharTTF(int x, int y, wchar_t c, const Vec4& color, float fontSize) {
 		int w, h, xoff, yoff;
 		float scale = stbtt_ScaleForPixelHeight(&m_FontInfo, fontSize);
 
@@ -117,7 +119,7 @@ namespace PGR {
 					int py = m_Height - (y + j + yoff);
 					if (px >= 0 && px < m_Width && py >= 0 && py < m_Height) {
 						Vec3 dst = GetColor(px, py);
-						Vec3 blended = color * alpha + dst * (1.0f - alpha);
+						Vec4 blended = Vec4(color * alpha + dst * (1.0f - alpha), 1.0f);
 						SetColor(px, py, blended);
 					}
 				}
@@ -126,7 +128,7 @@ namespace PGR {
 		stbtt_FreeBitmap(bitmap, nullptr);
 	}
 
-	void Framebuffer::DrawWTextTTF(int x, int y, const std::wstring& text, const Vec3& color, float fontSize) {
+	void Framebuffer::DrawWTextTTF(int x, int y, const std::wstring& text, const Vec4& color, float fontSize) {
 		float scale = stbtt_ScaleForPixelHeight(&m_FontInfo, fontSize);
 		int xpos = x;
 		int ascent, descent, lineGap;;
@@ -140,6 +142,49 @@ namespace PGR {
 			int kern = stbtt_GetCodepointKernAdvance(&m_FontInfo, c, c);
 			xpos += int(ax * scale) + kern;
 		}
+	}
+
+	void Framebuffer::DrawLine(int x0, int y0, int x1, int y1, float w, const Vec4& color) {
+		int dx = abs(x1 - x0), sx = x0 < x1 ? 1 : -1;
+		int dy = -abs(y1 - y0), sy = y0 < y1 ? 1 : -1;
+		int err = dx + dy, e2;
+
+		float halfW = w * 0.5f;
+		while (true) {
+			for (int wx = -int(halfW); wx <= int(halfW); ++wx) {
+				for (int wy = -int(halfW); wy <= int(halfW); ++wy) {
+					int px = x0 + wx;
+					int py = y0 + wy;
+					float dist = sqrtf((float)(wx * wx + wy * wy));
+					if (dist <= halfW + 0.5f) {
+						Vec4 c = color;
+						if (halfW > 0.5f) {
+							float alpha = 1.0f - std::clamp((dist - halfW + 0.5f), 0.0f, 1.0f);
+							c.W *= alpha;
+						}
+						SetColor(px, py, c);
+					}
+				}
+			}
+			if (x0 == x1 && y0 == y1) break;
+			e2 = 2 * err;
+			if (e2 >= dy) { err += dy; x0 += sx; }
+			if (e2 <= dx) { err += dx; y0 += sy; }
+		}
+	}
+
+	void Framebuffer::FillRect(int x0, int y0, int x1, int y1, const Vec4& color) {
+		if (x0 > x1) std::swap(x0, x1);
+		if (y0 > y1) std::swap(y0, y1);
+		for (int y = y0; y <= y1; ++y) {
+			for (int x = x0; x <= x1; ++x) {
+				SetColor(x, y, color);
+			}
+		}
+	}
+
+	void Framebuffer::FillSizeRect(int x, int y, int w, int h, const Vec4& color) {
+		FillRect(x - w / 2, y - h / 2, x + w / 2, y + h / 2, color);
 	}
 
 	Framebuffer* Framebuffer::Create(const int width, const int height) {

@@ -79,6 +79,7 @@ namespace PGR {
     Vec4 operator- (const Vec4& left, const Vec4& right);
     Vec4 operator* (const float left, const Vec4& right);
     Vec4 operator* (const Vec4& left, const float right);
+    Vec4 operator* (const Vec4& left, const Vec4& right);
     Vec4 operator/ (const Vec4& left, const float right);
 
     Vec4& operator+= (Vec4& left, const Vec4& right);

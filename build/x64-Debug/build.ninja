@@ -83,6 +83,14 @@ build CMakeFiles\PGR.dir\src\PGR\Base\Maths.cpp.obj: CXX_COMPILER__PGR_Debug ..\
   TARGET_COMPILE_PDB = CMakeFiles\PGR.dir\
   TARGET_PDB = PGR.pdb
 
+build CMakeFiles\PGR.dir\src\PGR\Renderer\Texture.cpp.obj: CXX_COMPILER__PGR_Debug ..\..\src\PGR\Renderer\Texture.cpp || cmake_object_order_depends_target_PGR
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++17
+  INCLUDES = -I..\..\src
+  OBJECT_DIR = CMakeFiles\PGR.dir
+  OBJECT_FILE_DIR = CMakeFiles\PGR.dir\src\PGR\Renderer
+  TARGET_COMPILE_PDB = CMakeFiles\PGR.dir\
+  TARGET_PDB = PGR.pdb
+
 build CMakeFiles\PGR.dir\src\PGR\stb\stb_image.cpp.obj: CXX_COMPILER__PGR_Debug ..\..\src\PGR\stb\stb_image.cpp || cmake_object_order_depends_target_PGR
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++17
   INCLUDES = -I..\..\src
@@ -107,6 +115,14 @@ build CMakeFiles\PGR.dir\src\PGR\stb\std_image_resize2.cpp.obj: CXX_COMPILER__PG
   TARGET_COMPILE_PDB = CMakeFiles\PGR.dir\
   TARGET_PDB = PGR.pdb
 
+build CMakeFiles\PGR.dir\src\cJSON\cJSON.c.obj: C_COMPILER__PGR_Debug ..\..\src\cJSON\cJSON.c || cmake_object_order_depends_target_PGR
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /MDd /Zi /Ob0 /Od /RTC1
+  INCLUDES = -I..\..\src
+  OBJECT_DIR = CMakeFiles\PGR.dir
+  OBJECT_FILE_DIR = CMakeFiles\PGR.dir\src\cJSON
+  TARGET_COMPILE_PDB = CMakeFiles\PGR.dir\
+  TARGET_PDB = PGR.pdb
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target PGR
@@ -115,7 +131,7 @@ build CMakeFiles\PGR.dir\src\PGR\stb\std_image_resize2.cpp.obj: CXX_COMPILER__PG
 #############################################
 # Link the executable PGR.exe
 
-build PGR.exe: CXX_EXECUTABLE_LINKER__PGR_Debug CMakeFiles\PGR.dir\src\PGR\Main.cpp.obj CMakeFiles\PGR.dir\src\PGR\Application.cpp.obj CMakeFiles\PGR.dir\src\PGR\Window\Window.cpp.obj CMakeFiles\PGR.dir\src\PGR\Window\Framebuffer.cpp.obj CMakeFiles\PGR.dir\src\PGR\Base\Maths.cpp.obj CMakeFiles\PGR.dir\src\PGR\stb\stb_image.cpp.obj CMakeFiles\PGR.dir\src\PGR\stb\stb_truetype.cpp.obj CMakeFiles\PGR.dir\src\PGR\stb\std_image_resize2.cpp.obj
+build PGR.exe: CXX_EXECUTABLE_LINKER__PGR_Debug CMakeFiles\PGR.dir\src\PGR\Main.cpp.obj CMakeFiles\PGR.dir\src\PGR\Application.cpp.obj CMakeFiles\PGR.dir\src\PGR\Window\Window.cpp.obj CMakeFiles\PGR.dir\src\PGR\Window\Framebuffer.cpp.obj CMakeFiles\PGR.dir\src\PGR\Base\Maths.cpp.obj CMakeFiles\PGR.dir\src\PGR\Renderer\Texture.cpp.obj CMakeFiles\PGR.dir\src\PGR\stb\stb_image.cpp.obj CMakeFiles\PGR.dir\src\PGR\stb\stb_truetype.cpp.obj CMakeFiles\PGR.dir\src\PGR\stb\std_image_resize2.cpp.obj CMakeFiles\PGR.dir\src\cJSON\cJSON.c.obj
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
   LINK_LIBRARIES = kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib

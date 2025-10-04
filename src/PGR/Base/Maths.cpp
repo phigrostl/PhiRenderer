@@ -67,6 +67,9 @@ namespace PGR {
     Vec4 operator* (const Vec4& left, const float right) {
         return right * left;
     }
+    Vec4 operator* (const Vec4& left, const Vec4& right) {
+        return { left.X * right.X, left.Y * right.Y, left.Z * right.Z, left.W * right.W };
+    }
     Vec4 operator/ (const Vec4& left, const float right) {
         ASSERT(right != 0);
         return left * (1.0f / right);
