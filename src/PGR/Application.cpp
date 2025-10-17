@@ -485,12 +485,7 @@ namespace PGR {
 
 	void Application::Init() {
 
-		HWND Cmd = GetConsoleWindow();
-		ShowWindow(Cmd, SW_SHOW);
-
 		LoadFiles();
-
-		ShowWindow(Cmd, SW_HIDE);
 
 		Window::Init();
 		m_Window = Window::Create(m_Name, m_Width, m_Height);
@@ -563,9 +558,7 @@ namespace PGR {
 			m_Window->PollInputEvents();
 			
 			if (m_Width > 0 && m_Height > 0) {
-				m_Framebuffer->Clear(Vec3(0.09f, 0.10f, 0.14f));
 				OnUpdate();
-				m_Window->DrawFramebuffer(m_Framebuffer);
 			}
 
 			const auto currentTime = std::chrono::steady_clock::now();
@@ -577,8 +570,6 @@ namespace PGR {
 			} else {
 				m_StartFrameTime = currentTime - std::chrono::milliseconds(static_cast<int>(m_Time * 1000));
 			}
-			
-			std::this_thread::sleep_for(std::chrono::milliseconds(1));
 		}
 	}
 
@@ -1133,7 +1124,7 @@ namespace PGR {
 				(int)(m_Width / 2.0f),
 				(int)(m_Height - m_Height * 0.03f),
 				lineStr,
-				Vec4(1.0f), m_Width * 0.04f, 0.0f
+				Vec4(0.0f, 1.0f, 0.0f, 1.0f), m_Width * 0.04f, 0.0f
 			);
 
 		}
@@ -1209,7 +1200,16 @@ namespace PGR {
 		if (m_Window->GetKey(PGR_KEY_V))
 			__DEBUG__ = false;
 
-		Render(m_C.camera.size, m_C.camera.Pos.X, m_C.camera.Pos.Y);
+
+		if (!m_Window->IsActive()) {
+			IsPlaying = false;
+			mciSendString("pause music", NULL, 0, NULL);
+		}
+		else {
+			m_Framebuffer->Clear(Vec3(0.0f));
+			Render(m_C.camera.size, m_C.camera.Pos.X, m_C.camera.Pos.Y);
+			m_Window->DrawFramebuffer(m_Framebuffer);
+		}
 	}
 
 }

@@ -94,6 +94,7 @@ namespace PGR {
 		BitBlt(windowDC, 0, 0, m_Width, m_Height, m_MemoryDC, 0, 0, SRCCOPY);
 		ShowWindow(m_Handle, SW_SHOW);
 		ReleaseDC(m_Handle, windowDC);
+		PollInputEvents();
 	}
 
 	void Window::DrawFramebuffer(Framebuffer* framebuffer) {
@@ -164,6 +165,16 @@ namespace PGR {
 		case WM_SIZE:
 			window->Resize(LOWORD(lParam), HIWORD(lParam));
 			return 0;
+		case WM_ACTIVATE:
+			if (LOWORD(wParam) == WA_INACTIVE) {
+				window->m_Active = false;
+				puts("Inactive");
+			}
+			else {
+				window->m_Active = true;
+				puts("Active");
+			}
+			return 0;
 		}
 		if (msgID == WM_MOUSEWHEEL && !s_IsWheel) {
 			window->m_MouseWheel = GET_WHEEL_DELTA_WPARAM(wParam);
@@ -181,10 +192,9 @@ namespace PGR {
 
 	void Window::PollInputEvents() {
 		MSG message;
-		while (PeekMessage(&message, NULL, 0, 0, PM_REMOVE)) {
-			TranslateMessage(&message);
-			DispatchMessage(&message);
-		}
+		PeekMessage(&message, NULL, 0, 0, PM_REMOVE);
+		TranslateMessage(&message);
+		DispatchMessage(&message);
 	}
 
 	void Window::Resize(int width, int height) {

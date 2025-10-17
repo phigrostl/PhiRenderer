@@ -203,28 +203,37 @@ namespace PGR {
 	}
 
 	void Framebuffer::DrawLine(int x0, int y0, int x1, int y1, float w, const Vec4& color) {
-		int dx = abs(x1 - x0), sx = x0 < x1 ? 1 : -1;
-		int dy = -abs(y1 - y0), sy = y0 < y1 ? 1 : -1;
-		int err = dx + dy, e2;
+		int dx = abs(x1 - x0);
+		int dy = abs(y1 - y0);
+		int sx = (x0 < x1) ? 1 : -1;
+		int sy = (y0 < y1) ? 1 : -1;
+		int err = dx - dy;
 
-		float halfW = w * 0.5f;
+		float halfWidth = w / 2.0f;
+
 		while (true) {
-			for (int wx = -int(halfW); wx <= int(halfW); ++wx) {
-				for (int wy = -int(halfW); wy <= int(halfW); ++wy) {
-					int px = x0 + wx;
-					int py = y0 + wy;
-					float dist = sqrtf((float)(wx * wx + wy * wy));
-					if (dist <= halfW + 0.5f) {
-						SetColor(px, py, color);
-					}
+			for (float i = -halfWidth; i <= halfWidth; i++) {
+				for (float j = -halfWidth; j <= halfWidth; j++) {
+					float px = x0 + i;
+					float py = y0 + j;
+					SetColor((float)px, (float)py, color);
 				}
 			}
+
 			if (x0 == x1 && y0 == y1) break;
-			e2 = 2 * err;
-			if (e2 >= dy) { err += dy; x0 += sx; }
-			if (e2 <= dx) { err += dx; y0 += sy; }
+
+			int e2 = 2 * err;
+			if (e2 > -dy) {
+				err -= dy;
+				x0 += sx;
+			}
+			if (e2 < dx) {
+				err += dx;
+				y0 += sy;
+			}
 		}
 	}
+
 
 	void Framebuffer::FillRect(int x0, int y0, int x1, int y1, const Vec4& color) {
 		if (x0 > x1) std::swap(x0, x1);
