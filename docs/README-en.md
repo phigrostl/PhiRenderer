@@ -1,60 +1,67 @@
 # RTL
 > [中文](./README.md)
 ### Introduction
-`PhigrosRenderer` is a Phigros renderer written in `C++` for the `Windows` platform.
+`PhigrosRenderer` is a Phigros renderer written in `C++` for the `Windows` platform
 
-Drawing inspiration from [`papFri`](https://www.bilibili.com/video/BV1YJ7uzGE9x)'s software architecture, it implements basic rendering functionalities:
+Drawing inspiration from the software architecture of [`papFri`](https://www.bilibili.com/video/BV1YJ7uzGE9x), it implements the following basic rendering features:
 
-- Reading and rendering of official Phigros charts.
+ - Reads and renders official Phigros charts
+ - Resizable window with movement and zoom controls via mouse, WASD keys, and scroll wheel
+ - Information display showing song title, difficulty, etc.
+ - Press C to display additional information, V to restore
+ - Press F or R to highlight the line, pressing again increases (F) or decreases (R) the highlighted line number
+ - Select and read song information files
 
-### Usage Instructions
+### Usage
 
 ##### Operating Environment
+
 ```
 CPU: Intel E5-2673 v3
 Operating System: Windows 10
 Compiler: MSVC 2019
 ```
 
-#### Downloading the `Release` Version
-Click on `PGR-x64 or x86-Release.exe` under `Release` to download the latest compressed package of `PGR`.
-Double-click `PGR.exe` to run.
+#### Download `Release` Version
+Click `Release` to download the latest version of the `PGR` compressed package and extract it.
+Enter the `build` directory, then navigate to either `x64-Release` or `x86-Release` to find `PGR.exe`
 
-#### Building from Source
+#### Build from Source
+
 ```
 git clone https://github.com/phigrostl/PhigrosRenderer.git  // Clone the repository
-cd PhigrosRenderer                                          // Navigate to the project directory
-mkdir build                                                 // Create a build directory
-cd build                                                    // Navigate to the build directory
+cd PhigrosRenderer                                          // Enter the project directory
+mkdir build                                                 // Create build directory
+cd build                                                    // Enter build directory
 cmake .. --DCMAKE_BUILD_TYPE=Release                        // Configure the project
 cmake --build . --config Release                            // Build the project
-cd x86 or x64-Release                                       // Navigate to the Release directory
+cd x86 or x64-Release                                       // Enter Release directory
 .\PGR.exe                                                   // Run PGR
 ```
 
-#### Editing Code with `VS2019`
+#### Edit Code with `VS2019`
 ```
 git clone https://github.com/phigrostl/PhigrosRenderer.git  // Clone the repository
-cd PhigrosRenderer                                          // Navigate to the project directory
-mkdir build                                                 // Create a build directory
-cd build                                                    // Navigate to the build directory
-.\PGR.sln                                                   // Open the VS2019 project
+cd PhigrosRenderer                                          // Enter the project directory
+mkdir build                                                 // Create build directory
+cd build                                                    // Enter build directory
+.\PGR.sln                                                   // Open VS2019 project
 ```
 
-### Showcase
-- `Distorted Fate` | Music: `Sakuzyo` | Artwork: `knife美工刀` | Chart: `unDefined Future` (`JKy`, `NerSAN`, `Rikko`, `TangScend`, `百九十八`, `晨`)
+### Effects
+ - `Distorted Fate` | Music: `Sakuzyo` | Draw: `knife美工刀` | Chart: `unDefined Future` (`JKy`, `NerSAN`, `Rikko`, `TangScend`, `百九十八`, `晨`)
 
 https://github.com/user-attachments/assets/33d83e33-ef11-49ea-94ca-2bcd5c1508a3
- > Github can only upload 10MB files, this is after compression.
+ > GitHub only allows 10MB file uploads, this is compressed
 
-<div>
+ <div>
 	<img src="./DF1.png" width="640px" height="360px" />
-</div>
-
-<div>
+ </div>
+ 
+ <div>
 	<img src="./DF2.png" width="640px" height="360px" />
-</div>
+ </div>
 
-<div>
+ <div>
 	<img src="./DF3.png" width="640px" height="360px" />
-</div>
+ </div>
