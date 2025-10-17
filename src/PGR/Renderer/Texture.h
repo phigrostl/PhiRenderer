@@ -23,10 +23,10 @@ namespace PGR {
 		int GetHeight() const { return m_Height; }
 		std::string GetPath() const { return m_Path; }
 
-		Texture* ClipImg(int y0, int y1);
-		Texture* ClipBlockImg(int x0, int y0, int x1, int y1);
-		Texture* ColorTexture(Vec4 color);
-		Texture* GetBlurImg(int radius);
+		Texture* ClipImg(int y0, int y1, bool reserve = true);
+		Texture* ClipBlockImg(int x0, int y0, int x1, int y1, bool reserve = true);
+		Texture* ColorTexture(Vec4 color, bool reserve = true);
+		Texture* GetBlurImg(float radius, bool reserve = true);
 
 		void SetColor(int x, int y, Vec4 color) { m_Data[x + y * m_Width] = color; }
 

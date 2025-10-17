@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "PGR/Base/Maths.h"
 #include "PGR/Renderer/Texture.h"
@@ -26,6 +26,7 @@ namespace PGR {
 		void LoadFontTTF(const std::string& fontPath);
 		void DrawCharTTF(int x, int y, char c, const Vec4& color, float fontSize);
 		void DrawTextTTF(int x, int y, const std::string& text, const Vec4& color, float fontSize);
+		void DrawCenterTextTTF(int x, int y, const std::string& text, const Vec4& color, float fontSize, float rotation);
 
 		// wide
 		void LoadWFontTTF(const std::wstring& fontPath);
@@ -35,6 +36,8 @@ namespace PGR {
 		void DrawLine(int x0, int y0, int x1, int y1, float w, const Vec4& color);
 		void FillRect(int x0, int y0, int x1, int y1, const Vec4& color);
 		void FillSizeRect(int x, int y, int w, int h, const Vec4& color);
+
+		void Resize(const int width, const int height);
 
 		static Framebuffer* Create(const int width, const int height);
 

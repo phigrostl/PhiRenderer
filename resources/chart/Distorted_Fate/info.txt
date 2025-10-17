@@ -1,0 +1,9 @@
+#
+Name: Distorted Fate
+Song: music_#1135.wav
+Chart: Chart_AT_#1188.json
+Picture: defaultImage.png
+Level: AT Lv.17.4
+Composer: Sakuzyo
+Illustrator: knife美工刀
+Charter: unDefined Future[16]

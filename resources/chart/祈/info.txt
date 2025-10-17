@@ -1,0 +1,9 @@
+#
+Name: 祈 -我ら神祖と共に歩む者なり-
+Song: music_#1798.wav
+Chart: Chart_AT_#2189.json
+Picture: defaultImage.png
+Level: AT Lv.17.3
+Composer: 光吉猛修 VS 穴山大輔 VS Kai VS 水野健治 VS 大国奏音
+Illustrator: SEGA (V17AMax Modified)
+Charter: フィグロス譜面チーム "Rikko feat. Ner" -Pray for "PHI"-

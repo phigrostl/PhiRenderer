@@ -27,6 +27,11 @@ namespace PGR {
 		int GetMouseX() const { return m_MouseX; }
 		int GetMouseY() const { return m_MouseY; }
 		int GetMsg() const { return m_Msg; }
+		int GetWhell() const { return m_MouseWheel; }
+		bool IsActive() const { return m_Active; }
+
+		int GetWidth() const { return m_Width; }
+		int GetHeight() const { return m_Height; }
 
 		static void Register();
 		static void Unregister();
@@ -36,11 +41,16 @@ namespace PGR {
 
 		static void PollInputEvents();
 
+		void Resize(int width, int height);
+
 
 	protected:
 		std::string m_Title;
 		int m_Width, m_Height;
 		bool m_Closed = true;
+		bool m_Active = true;
+
+		int m_MouseWheel = 0;
 
 		char m_Keys[PGR_KEY_MAX_COUNT];
 
@@ -49,6 +59,8 @@ namespace PGR {
 		unsigned char* m_Buffer;
 
 		static bool s_Inited;
+
+		static bool s_IsWheel;
 
 		int m_MouseX, m_MouseY;
 		unsigned int m_Msg;

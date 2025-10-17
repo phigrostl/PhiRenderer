@@ -30,6 +30,17 @@ namespace PGR {
 	}
 
 	void Texture::Init() {
+
+		std::ifstream file(m_Path.c_str());
+		if (!file.is_open()) {
+			m_Width = 1;
+			m_Height = 1;
+			m_Channels = 4;
+			m_Data = new Vec4[1];
+			m_Data[0] = Vec4(0.0f);
+			return;
+		}
+
 		int width, height, channels;
 		stbi_set_flip_vertically_on_load(1);
 		stbi_uc* data = nullptr;
@@ -60,7 +71,7 @@ namespace PGR {
 					UChar2Float(data[i * 3]),
 					UChar2Float(data[i * 3 + 1]),
 					UChar2Float(data[i * 3 + 2]),
-					0.0f
+					1.0f
 				);
 			}
 			break;
@@ -157,7 +168,7 @@ namespace PGR {
 		}
 	}
 
-	Texture* Texture::ClipImg(int y0, int y1) {
+	Texture* Texture::ClipImg(int y0, int y1, bool reserve) {
 		if (!this || y0 < 0 || y1 <= y0 || y1 > this->GetHeight())
 			return new Texture(Vec4(0.0f, 0.0f, 0.0f, 0.0f));
 
@@ -179,10 +190,13 @@ namespace PGR {
 			}
 		}
 
+		if (!reserve)
+			delete this;
+
 		return newTexture;
 	}
 
-	Texture* Texture::ClipBlockImg(int x0, int y0, int x1, int y1) {
+	Texture* Texture::ClipBlockImg(int x0, int y0, int x1, int y1, bool reserve) {
 		if (!this || x0 < 0 || y0 < 0 || x1 <= x0 || y1 <= y0 || x1 > this->GetWidth() || y1 > this->GetHeight()) {
 			return new Texture(Vec4(0.0f, 0.0f, 0.0f, 0.0f));
 		}
@@ -203,10 +217,13 @@ namespace PGR {
 			}
 		}
 
+		if (!reserve)
+			delete this;
+
 		return newTexture;
 	}
 
-	Texture* Texture::ColorTexture(Vec4 color) {
+	Texture* Texture::ColorTexture(Vec4 color, bool reserve) {
 		Texture* newTexture = new Texture(color);
 		newTexture->m_Width = this->GetWidth();
 		newTexture->m_Height = this->GetHeight();
@@ -223,89 +240,114 @@ namespace PGR {
 			}
 		}
 
+		if (!reserve)
+			delete this;
+
 		return newTexture;
 	}
 
-	Texture* Texture::GetBlurImg(int radius) {
-		if (!this || radius <= 0 || this->GetWidth() <= 0 || this->GetHeight() <= 0) {
+	Texture* Texture::GetBlurImg(float r, bool reserve) {
+
+		if (!this || this->GetWidth() <= 0 || this->GetHeight() <= 0) {
 			Texture* copyTexture = new Texture(Vec4(0.0f, 0.0f, 0.0f, 0.0f));
 			copyTexture->m_Width = this->GetWidth();
 			copyTexture->m_Height = this->GetHeight();
 			copyTexture->m_Channels = this->m_Channels;
 			copyTexture->m_Path = this->GetPath() + "_copy";
 
-			int size = copyTexture->m_Width * copyTexture->m_Height;
-			delete[] copyTexture->m_Data;
-			copyTexture->m_Data = new Vec4[size];
-
-			for (int y = 0; y < copyTexture->m_Height; y++) {
-				for (int x = 0; x < copyTexture->m_Width; x++) {
-					copyTexture->SetColor(x, y, this->GetColor(x, y));
-				}
-			}
+			if (!reserve)
+				delete this;
 
 			return copyTexture;
 		}
 
-		Texture* tempTexture = new Texture(Vec4(0.0f, 0.0f, 0.0f, 0.0f));
+		int width = this->GetWidth();
+		int height = this->GetHeight();
+		int radius = static_cast<int>(width * r);
+
+		if (radius <= 0) {
+
+			int size = width * height;
+
+			Vec4 sum = Vec4(0.0f);
+
+			for (int i = 0; i < size; ++i) {
+				sum += this->m_Data[i];
+			}
+
+			Vec4 color = sum / static_cast<float>(size);
+
+			Texture* blurTexture = new Texture(color);
+
+			if (!reserve)
+				delete this;
+
+			return blurTexture;
+		}
+
 		Texture* blurTexture = new Texture(Vec4(0.0f, 0.0f, 0.0f, 0.0f));
-		
-		for (auto tex : {tempTexture, blurTexture}) {
-			tex->m_Width = this->GetWidth();
-			tex->m_Height = this->GetHeight();
-			tex->m_Channels = this->m_Channels;
-			tex->m_Path = this->GetPath() + "_blur";
-			int size = tex->m_Width * tex->m_Height;
-			delete[] tex->m_Data;
-			tex->m_Data = new Vec4[size];
-		}
+		blurTexture->m_Width = width;
+		blurTexture->m_Height = height;
+		blurTexture->m_Channels = this->m_Channels;
+		blurTexture->m_Path = this->GetPath() + "_blur";
 
-		std::vector<float> weights(radius * 2 + 1);
-		float sigma = radius / 2.0f;
-		float twoSigmaSquare = 2.0f * sigma * sigma;
-		float sum = 0.0f;
-		
-		for (int i = -radius; i <= radius; i++) {
-			int index = i + radius;
-			weights[index] = exp(-(i * i) / twoSigmaSquare);
-			sum += weights[index];
-		}
-		
-		for (float& weight : weights) {
-			weight /= sum;
-		}
+		int size = width * height;
+		delete[] blurTexture->m_Data;
+		blurTexture->m_Data = new Vec4[size];
 
-		for (int y = 0; y < this->GetHeight(); y++) {
-			for (int x = 0; x < this->GetWidth(); x++) {
-				Vec4 blurredColor(0.0f, 0.0f, 0.0f, 0.0f);
-				for (int i = -radius; i <= radius; i++) {
-					int nx = x + i;
-					if (nx >= 0 && nx < this->GetWidth()) {
-						int weightIndex = i + radius;
-						blurredColor += this->GetColor(nx, y) * weights[weightIndex];
+		for (int y = 0; y < height; ++y) {
+			for (int x = 0; x < width; ++x) {
+				Vec4 sum(0.0f);
+				int count = 0;
+
+				for (int dx = -radius; dx <= radius; ++dx) {
+					int nx = x + dx;
+					if (nx >= 0 && nx < width) {
+						sum += this->m_Data[y * width + nx];
+						count++;
 					}
 				}
-				tempTexture->SetColor(x, y, blurredColor);
+
+				blurTexture->m_Data[y * width + x] = sum / static_cast<float>(count);
+			}
+
+			if (y % (height / 25) == 0 || y == height - 1) {
+				putchar('=');
 			}
 		}
 
-		for (int x = 0; x < this->GetWidth(); x++) {
-			for (int y = 0; y < this->GetHeight(); y++) {
-				Vec4 blurredColor(0.0f, 0.0f, 0.0f, 0.0f);
-				for (int j = -radius; j <= radius; j++) {
-					int ny = y + j;
-					if (ny >= 0 && ny < this->GetHeight()) {
-						int weightIndex = j + radius;
-						blurredColor += tempTexture->GetColor(x, ny) * weights[weightIndex];
+		Vec4* tempBuffer = new Vec4[size];
+		memcpy(tempBuffer, blurTexture->m_Data, size * sizeof(Vec4));
+
+		for (int x = 0; x < width; ++x) {
+			for (int y = 0; y < height; ++y) {
+				Vec4 sum(0.0f);
+				int count = 0;
+
+				for (int dy = -radius; dy <= radius; ++dy) {
+					int ny = y + dy;
+					if (ny >= 0 && ny < height) {
+						sum += tempBuffer[ny * width + x];
+						count++;
 					}
 				}
-				blurTexture->SetColor(x, y, blurredColor);
+
+				blurTexture->m_Data[y * width + x] = sum / static_cast<float>(count);
+			}
+
+			if (x % (width / 25) == 0 || x == width - 1) {
+				putchar('=');
 			}
 		}
+		putchar('\n');
 
-		delete tempTexture;
+		delete[] tempBuffer;
+
+		if (!reserve)
+			delete this;
 
 		return blurTexture;
 	}
+
 
 }

@@ -1,0 +1,9 @@
+#
+Name: Retribution
+Song: music_#2826.wav
+Chart: c.json
+Picture: 6ba32b68-c69c-4741-beac-a49c52357fa3.png
+Level: IN Lv.16.2
+Composer: nm-y & Kry.exe
+Illustrator: NerSAN
+Charter: Ner as "SPΔDE"

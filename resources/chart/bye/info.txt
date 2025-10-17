@@ -1,0 +1,9 @@
+#
+Name: bye
+Song: music_#2319.wav
+Chart: Chart_IN_#2171.json
+Picture: defaultImage.png
+Level: IN Lv.14.8
+Composer: DingerBox
+Illustrator: 海产
+Charter: Ner ~ See you next time ~

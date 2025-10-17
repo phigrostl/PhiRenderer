@@ -6,10 +6,11 @@
 namespace PGR {
 
 	bool Window::s_Inited = false;
+	bool Window::s_IsWheel = false;
 
 	Window::Window(const std::string title, int width, int height)
 		: m_Title(title), m_Width(width), m_Height(height) {
-		DWORD style = WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX;
+		DWORD style = WS_CAPTION | WS_SYSMENU | WS_MAXIMIZEBOX | WS_THICKFRAME;
 		RECT rect;
 		rect.left = 0;
 		rect.top = 0;
@@ -74,7 +75,7 @@ namespace PGR {
 		wc.cbClsExtra = 0;
 		wc.cbWndExtra = 0;
 		wc.hbrBackground = (HBRUSH)(WHITE_BRUSH);
-		wc.hCursor = NULL;
+		wc.hCursor = LoadCursor(NULL, IDC_ARROW);
 		wc.hIcon = NULL;
 		wc.hInstance = GetModuleHandle(NULL);
 		wc.lpfnWndProc = WndProc;
@@ -100,22 +101,26 @@ namespace PGR {
 		const int fHeight = framebuffer->GetHeight();
 		const int width = m_Width < fWidth ? m_Width : fWidth;
 		const int height = m_Height < fHeight ? m_Height : fHeight;
+		constexpr int channelCount = 3;
+
+		int rowSize = m_Width * channelCount;
+		if (rowSize % 4 != 0) {
+			rowSize += 4 - (rowSize % 4);
+		}
+
+		unsigned char* buffer = m_Buffer;
+		const int fHeightMinusOne = fHeight - 1;
+
 		for (int i = 0; i < height; i++) {
+			unsigned char* rowStart = buffer + i * rowSize;
+			int framebufferY = fHeightMinusOne - i;
+
 			for (int j = 0; j < width; j++) {
-				constexpr int channelCount = 3;
-				constexpr int rChannel = 2;
-				constexpr int gChannel = 1;
-				constexpr int bChannel = 0;
+				Vec3 color = framebuffer->GetColor(j, framebufferY);
 
-				Vec3 color = framebuffer->GetColor(j, fHeight - i - 1);
-				const int pixStart = (i * width + j) * channelCount;
-				const int rIndex = pixStart + rChannel;
-				const int gIndex = pixStart + gChannel;
-				const int bIndex = pixStart + bChannel;
-
-				m_Buffer[rIndex] = Float2UChar(color.X);
-				m_Buffer[gIndex] = Float2UChar(color.Y);
-				m_Buffer[bIndex] = Float2UChar(color.Z);
+				rowStart[j * channelCount + 2] = Float2UChar(color.X); // R
+				rowStart[j * channelCount + 1] = Float2UChar(color.Y); // G
+				rowStart[j * channelCount + 0] = Float2UChar(color.Z); // B
 			}
 		}
 		Show();
@@ -156,7 +161,21 @@ namespace PGR {
 		case WM_RBUTTONDOWN:
 			window->m_Keys[PGR_BUTTON_RIGHT] = PGR_PRESS;
 			return 0;
+		case WM_SIZE:
+			window->Resize(LOWORD(lParam), HIWORD(lParam));
+			return 0;
 		}
+		if (msgID == WM_MOUSEWHEEL && !s_IsWheel) {
+			window->m_MouseWheel = GET_WHEEL_DELTA_WPARAM(wParam);
+			s_IsWheel = true;
+			return 0;
+		}
+		else if (s_IsWheel) {
+			window->m_MouseWheel = 0;
+			s_IsWheel = false;
+			return 0;
+		}
+
 		return DefWindowProc(hWnd, msgID, wParam, lParam);
 	}
 
@@ -166,6 +185,55 @@ namespace PGR {
 			TranslateMessage(&message);
 			DispatchMessage(&message);
 		}
+	}
+
+	void Window::Resize(int width, int height) {
+		HDC windowDC = GetDC(m_Handle);
+		long style = GetWindowLong(m_Handle, GWL_STYLE);
+
+		HBITMAP oldBitmap = (HBITMAP)GetCurrentObject(m_MemoryDC, OBJ_BITMAP);
+		HDC oldMemoryDC = m_MemoryDC;
+
+		m_Width = width;
+		m_Height = height;
+
+		HDC newMemoryDC = CreateCompatibleDC(windowDC);
+
+		BITMAPINFOHEADER biHeader = {};
+		biHeader.biSize = sizeof(BITMAPINFOHEADER);
+		biHeader.biWidth = static_cast<long>(width);
+		biHeader.biHeight = -static_cast<long>(height);
+		biHeader.biPlanes = 1;
+		biHeader.biBitCount = 24;
+		biHeader.biCompression = BI_RGB;
+
+		void* newBuffer = nullptr;
+		HBITMAP newBitmap = CreateDIBSection(newMemoryDC, (BITMAPINFO*)&biHeader, DIB_RGB_COLORS, &newBuffer, nullptr, 0);
+		ASSERT(newBitmap != NULL);
+
+		constexpr int channelCount = 3;
+
+		int rowSize = width * channelCount;
+		if (rowSize % 4 != 0) {
+			rowSize += 4 - (rowSize % 4);
+		}
+		int bufferSize = rowSize * height;
+		memset(newBuffer, 0, bufferSize);
+
+		HBITMAP tempBitmap = (HBITMAP)SelectObject(newMemoryDC, newBitmap);
+
+		m_Buffer = static_cast<unsigned char*>(newBuffer);
+		m_MemoryDC = newMemoryDC;
+
+		DeleteDC(oldMemoryDC);
+		DeleteObject(oldBitmap);
+		DeleteObject(tempBitmap);
+
+		RECT rect = { 0, 0, static_cast<long>(width), static_cast<long>(height) };
+		AdjustWindowRect(&rect, style, FALSE);
+		SetWindowPos(m_Handle, NULL, 0, 0, rect.right - rect.left, rect.bottom - rect.top, SWP_NOZORDER | SWP_NOMOVE);
+
+		ReleaseDC(m_Handle, windowDC);
 	}
 
 	Window* Window::Create(const std::string title, int width, int height) {

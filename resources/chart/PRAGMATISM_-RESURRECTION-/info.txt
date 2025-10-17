@@ -1,0 +1,9 @@
+#
+Name: PRAGMATISM -RESURRECTION-
+Song: music_#1295.wav
+Chart: Chart_AT_#2410.json
+Picture: defaultImage.png
+Level: AT Lv.16.6
+Composer: Laur
+Illustrator: シエラ (Design：祈莲)
+Charter: THE LAST 198

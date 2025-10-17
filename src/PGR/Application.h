@@ -1,5 +1,7 @@
 #pragma once
 
+#define _CRT_SECURE_NO_WARNINGS
+#define _SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING
 #include "PGR/Window/Window.h"
 #include "PGR/Renderer/Texture.h"
 
@@ -11,6 +13,8 @@
 #include <direct.h>
 #include <mmsystem.h>
 #include <random>
+#include <codecvt>
+#include <locale>
 
 #include "cJSON/cJSON.h"
 
@@ -68,8 +72,11 @@ namespace PGR {
 
 	struct ChartInfo {
 		ChartInfo() = default;
-		std::string level;
-		std::string name;
+		std::wstring level;
+		std::wstring name;
+		std::wstring song;
+		std::wstring picture;
+		std::wstring chart;
 	};
 
 	struct JudgeLineMoveEvent {
@@ -109,9 +116,8 @@ namespace PGR {
 		Particles(float w, float h) {
 			for (int i = 0; i < 4; i++) {
 				float rotate = randf(0.0f, 360.0f);
-				float s = w / 4040.0f * 3.0f;
-				float size = s * 33.0f * 0.75f;
-				float r = s * randf(185.0f, 265.0f);
+				float size = 33.0f * 0.75f;
+				float r = randf(185.0f, 265.0f);
 				pars[i] = Vec3(rotate, size, r);
 			}
 		}
@@ -130,6 +136,7 @@ namespace PGR {
 		float x = 0.0f;
 		float y = 0.0f;
 		float alpha = 1.0f;
+		float speed = 0.0f;
 	};
 
 	struct Note {
@@ -187,6 +194,8 @@ namespace PGR {
 	}
 
 	float getPosYEvent(float t, std::vector<JudgeLineMoveEvent> es);
+
+	float getSpeedValue(float t, std::vector<SpeedEvent> es);
 
 	struct NoteMap {
 		NoteMap() = default;
@@ -258,7 +267,8 @@ namespace PGR {
 			float x = getEventValue(beatt, moveEvents);
 			float y = getPosYEvent(beatt, moveEvents);
 			float alpha = getEventValue(beatt, disappearEvents);
-			return { rotate, x, y, alpha };
+			float speed = getSpeedValue(beatt, speedEvents);
+			return { rotate, x, y, alpha, speed };
 		}
 
 	};
@@ -266,6 +276,8 @@ namespace PGR {
 	struct ChartData {
 		std::vector<JudgeLine> judgeLines;
 		std::vector<NoteMap> clickEffectCollection;
+		int noteCount = 0;
+		float time = 0.0f;
 	};
 
 	struct Chart {
@@ -273,9 +285,18 @@ namespace PGR {
 
 		ChartInfo info;
 		Texture* image = nullptr;
+		Texture* blurImage = nullptr;
 		cJSON* json = nullptr;
 		ChartData data;
+		std::string path;
+		std::string wPath;
 
+	};
+
+	struct Camera {
+		Camera() = default;
+		Vec2 Pos = { 0.0f, 0.0f };
+		float size = 1.0f;
 	};
 
 	struct C {
@@ -285,6 +306,7 @@ namespace PGR {
 		Texture* noteHeadImgs[4][2] = { 0 };
 		Texture* holdBodyImgs[2] = { 0 };
 		Texture* holdTailImgs[2] = { 0 };
+		Camera camera;
 	};
 
 	class Application {
@@ -299,12 +321,14 @@ namespace PGR {
 
 		void Run();
 
+		bool __DEBUG__ = false;
+
 	private:
 		void Init();
 		void Terminate();
 
-		void OnUpdate(float startTime, float deltaTime);
-		void Render(float t);
+		void OnUpdate();
+		void Render(float size, float ox, float oy);
 
 		void LoadFiles();
 
@@ -324,7 +348,18 @@ namespace PGR {
 		std::chrono::steady_clock::time_point m_LastFrameTime;
 		std::chrono::steady_clock::time_point m_StartFrameTime;
 
+		Vec2 OriL;
+		bool IsPress = false;
+		bool IsPlaying = false;
+		bool IsSpace = false;
+
 		Respack m_Respack;
+
+		float m_Time;
+		float m_Accumulator = 0.0f;
+		int m_FPSCounter = 0;
+
+		int m_Line = -1;
 
 		C m_C;
 	};
